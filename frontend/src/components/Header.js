@@ -92,7 +92,7 @@ const Header = ({ onAddBookClick, onAddBorrowerClick, onAddAuthorClick, onUpdate
             <button onClick={toggleDeleteDropdown} className="bg-blue-700 text-red-400 px-4 py-2 rounded font-semibold hover:bg-blue-600 focus:ring-4 focus:ring-red-400">
               <FontAwesomeIcon icon={isDeleteDropdownOpen ? faAngleUp : faAngleDown} className="mr-2" /> Delete
             </button>
-            <div className={`absolute z-10 mt-2 w-56 bg-white shadow-lg rounded-md ${isDeleteDropdownOpen ? 'block' : 'hidden'} transition duration-300 transform-gpu origin-top`}>
+            <div className={`absolute z-10 mt- w-48 bg-white shadow-lg rounded-md ${isDeleteDropdownOpen ? 'block' : 'hidden'} transition duration-300 transform-gpu origin-top`}>
               <div className="py-1 text-left">
                 <button onClick={onDeleteBookClick} className="block w-full px-2 py-1 text-gray-800 hover:bg-gray-200">
                   <FontAwesomeIcon icon={faTrash} className="mr-2" /> Delete Book
@@ -104,12 +104,12 @@ const Header = ({ onAddBookClick, onAddBorrowerClick, onAddAuthorClick, onUpdate
             </div>
           </div>
 
-          <button onClick={onCheckinClick} className="bg-blue-600 text-white px-4 py-2 rounded font-semibold hover:bg-blue-500 focus:ring-4 focus:ring-blue-400">
-            <FontAwesomeIcon icon={faCheck} className="mr-2" /> Book Checkin
+          <button onClick={onCheckinClick} className="bg-blue-600 text-white px-4 mb-2 rounded font-semibold hover:bg-blue-500 focus:ring-4 focus:ring-blue-400">
+            <FontAwesomeIcon icon={faCheck} className="mr-2" />Book Checkin
           </button>
 
-          <button onClick={onCheckoutClick} className="bg-blue-600 text-white px-4 py-2 rounded font-semibold hover:bg-blue-500 focus:ring-4 focus:ring-blue-400">
-            <FontAwesomeIcon icon={faCheck} className="mr-2" /> Book Checkout
+          <button onClick={onCheckoutClick} className="bg-blue-600 text-white px-4 mb-2 rounded font-semibold hover:bg-blue-500 focus:ring-4 focus:ring-blue-400">
+            <FontAwesomeIcon icon={faCheck} className="mr-2 " />Book Checkout
           </button>
         </div>
       </div>
