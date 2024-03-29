@@ -1,5 +1,5 @@
-server2.js is just a checking file to see if the server is running or not. It is not a part of the project. 
-
+Go to the link for the UI-Preview: [fronend/README.md](https://github.com/sayakghorai34/Library-Management-System/blob/main/frontend/README.md)
+ 
 ## How to run the project
 1. Clone the repository
 2. Open the terminal and navigate to the project directory
@@ -27,4 +27,9 @@ npm start
 ```
 5. Open the browser and navigate to `http://localhost:3000/` to view the client
 
-Contributed By: Sayak Ghorai (github/sayakghorai34)
+
+# Note
+    - Test(useless).js is just a checking file to see if the server is running or not. It is not a part of the project.
+
+# Contributed By: 
+    - Sayak Ghorai [(github/sayakghorai34)](https://github.com/sayakghorai34), 29th May 2024

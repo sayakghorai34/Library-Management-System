@@ -61,7 +61,7 @@ router.delete('/', async (req, res) => {
 router.put('/checkin', async (req, res) => {
   try {
     const { bookId, borrowerId } = req.body;
-    console.log(bookId, borrowerId);
+    // console.log(bookId, borrowerId);
     const updatedBook = await Book.findByIdAndUpdate(bookId, { borrower: null }, { new: true });
     if (!updatedBook) {
       return res.status(404).send('Book not found');
@@ -131,7 +131,7 @@ router.get('/searchin', async (req, res) => {
     // console.log('Regex:', regex);
 
     const books = await Book.find({ $and: [{ $or: [{ title: regex }, { category: regex }] }, { borrower: { $ne: null } }] }).populate('author');
-    console.log('Books:', books);
+    // console.log('Books:', books);
 
     res.status(200).json(books);
   } catch (error) {
