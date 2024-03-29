@@ -61,51 +61,51 @@ const AddAuthor = () => {
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold text-center mb-6">Add Author</h1>
-      <form onSubmit={handleAddAuthor} className="bg-gray-700 rounded-lg p-6">
+      <form onSubmit={handleAddAuthor} className="bg-gray-700 w-screen max-w-md rounded-lg p-4">
         <div className="mb-6">
-          <label htmlFor="author_name" className="block">Name</label>
+          <label align='left' htmlFor="author_name" className="block">Name</label>
           <input
             type="text"
             name="authorName"
             id="author_name"
             placeholder="Author's Name"
-            className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-3 w-full"
+            className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-2 w-full max-w-md"
             value={formData.authorName}
             onChange={handleChange}
           />
         </div>
         <div className="mb-6">
-          <label htmlFor="author_email" className="block">Email</label>
+          <label align='left' htmlFor="author_email" className="block">Email</label>
           <input
             type="email"
             name="authorEmail"
             id="author_email"
             placeholder="author's Email"
-            className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-3 w-full"
+            className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-2 w-full"
             value={formData.authorEmail}
             onChange={handleChange}
           />
         </div>
         <div className="mb-6">
-          <label htmlFor="author_phone" className="block">Phone No</label>
+          <label align='left' htmlFor="author_phone" className="block">Phone No</label>
           <input
             type="tel"
             name="authorPhone"
             id="author_phone"
             placeholder="author's Phone No"
-            className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-3 w-full"
+            className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-2 w-full"
             value={formData.authorPhone}
             onChange={handleChange}
           />
         </div>
         <div className="mb-6">
-          <label htmlFor="books" className="block">Books (Comma-separated)</label>
+          <label align='left' htmlFor="books" className="block">Books (Comma-separated)</label>
           <input
             type="text"
             name="books"
             id="books"
-            placeholder="Enter books separated by commas"
-            className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-3 w-full"
+            placeholder="Book names comma separated"
+            className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-2 w-full"
             value={formData.books}
             onChange={handleChangeBooks}
           />

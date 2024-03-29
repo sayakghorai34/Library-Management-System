@@ -23,7 +23,8 @@ const SelectedItemsDisplay = ({ selectedBook, selectedBorrower }) => {
   };
 
   return (
-    <div className="bg-gray-700 rounded-lg p-4 mb-4">
+    <div className="bg-gray-700 text-left rounded-lg p-8 w-screen max-w-md mb-4">
+      <div className=' pl-2'>
       <h3 className="text-lg font-bold mb-2">Selected Book</h3>
       <p>
         <span className="font-semibold">Title: </span>
@@ -57,6 +58,7 @@ const SelectedItemsDisplay = ({ selectedBook, selectedBorrower }) => {
         Save as PDF
       </button>
     </div>
+  </div>
   );
 };
 
@@ -226,7 +228,7 @@ const BookCheckout = () => {
       {selectedBook && selectedBorrower && (
         <>
           <SelectedItemsDisplay selectedBook={selectedBook} selectedBorrower={selectedBorrower} />
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={(e) => e.preventDefault()} className='w-screen max-w-md'>
             <div className="bg-gray-700 rounded-lg p-4 mt-4">
               <div className="mb-4">
                 <label htmlFor="confirmation" className="block">Confirmation</label>

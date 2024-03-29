@@ -29,7 +29,7 @@ const SearchBar = ({ onSearch }) => {
 
 const BorrowerList = ({ borrowers, onSelectBorrower }) => {
   return (
-    <div className="mb-4">
+    <div className="mb-4 w-screen max-w-screen-md">
       {borrowers && borrowers.length > 0 ? (
         borrowers.map((borrower) => (
           <div
@@ -142,7 +142,7 @@ const UpdateBorrower = () => {
         <SearchBar onSearch={handleSearch} />
         <BorrowerList borrowers={borrowers} onSelectBorrower={handleSelectBorrower} /> {/* Changed onSelectUser to onSelectBorrower */}
       </div>
-      {selectedBorrower && (<form onSubmit={handleSubmit}>
+      {selectedBorrower && (<form onSubmit={handleSubmit} className='w-screen max-w-md'>
         <div className="bg-gray-700 rounded-lg p-4 mt-4">
           <div className="mb-4">
             <label htmlFor="borrower_name" className="block">Name</label>

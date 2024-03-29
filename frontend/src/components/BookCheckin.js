@@ -150,7 +150,7 @@ const CheckinBook = ({ onGoHomeClick }) => {
       <SearchBar onSearch={handleSearch} />
       <BookList books={books} onSelectBook={handleSelectBook} />
       {selectedBook && (
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => e.preventDefault()} className='w-screen max-w-md'>
           <div className="bg-gray-700 rounded-lg p-4 mt-4">
             <div className="mb-4">
               <label htmlFor="title" className="block">Title</label>

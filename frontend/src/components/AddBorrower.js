@@ -49,7 +49,7 @@ const AddBorrower = () => {
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold text-center mb-6">Add Borrower</h1>
-      <form onSubmit={handleAddBorrower} className="bg-gray-700 rounded-lg p-6">
+      <form onSubmit={handleAddBorrower} className="bg-gray-700 rounded-lg w-screen max-w-md p-6">
         <div className="mb-6">
           <label htmlFor="borrower_name" className="block">Name</label>
           <input

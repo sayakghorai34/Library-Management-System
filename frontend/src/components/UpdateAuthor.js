@@ -132,7 +132,7 @@ const UpdateBorrower = () => {
         <SearchBar onSearch={handleSearch} />
         <AuthorList authors={authors} onSelectAuthor={handleSelectAuthor} /> 
       </div>
-      {selectedAuthor && (<form onSubmit={handleSubmit}>
+      {selectedAuthor && (<form onSubmit={handleSubmit} className='w-screen max-w-md'>
         <div className="bg-gray-700 rounded-lg p-4 mt-4">
           <div className="mb-4">
             <label htmlFor="author_name" className="block">Name</label>
