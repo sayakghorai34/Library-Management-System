@@ -28,7 +28,7 @@ npm start
 5. Open the browser and navigate to `http://localhost:3000/` to view the client
 
 # Note
-    - Test(useless).js is just a checking file to see if the server is running or not. It is not a part of the project.
+ - Test(useless).js is just a checking file to see if the server is running or not. It is not a part of the project.
 
 # Contributed by:
  - Sayak Ghorai [(github/sayakghorai34)](https://github.com/sayakghorai34), 29th May 2024 
