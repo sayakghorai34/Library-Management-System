@@ -24,6 +24,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
+    // console.log(req.params.id, req.body)
     const borrowerId = req.params.id;
     const updatedData = req.body;
     const updatedBorrower = await Borrower.findByIdAndUpdate(borrowerId, updatedData, { new: true });

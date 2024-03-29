@@ -56,7 +56,7 @@ const CheckinBook = ({ onGoHomeClick }) => {
 
   const handleSearch = async (query) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URI}/books/search?query=${query}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URI}/books/searchin?query=${query}`);
       const data = await response.json();
       setBooks(data);
     } catch (error) {

@@ -1,7 +1,6 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "proxy": "http://localhost:5500/api",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -10,6 +9,9 @@
     "cra-template": "1.2.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "file-saver": "^2.0.5",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "mongoose": "^8.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -41,8 +41,8 @@ function App() {
         onGoHomeClick={handleGoHomeClick} 
         goHome={handleGoHomeClick}
       />
-      <div className="min-h-screen text-white flex justify-center items-center">
-        <div className="bg-gray-800 rounded-lg shadow-gray-700 shadow-2xl max-w-md">
+      <div className="min-h-screen text-white flex justify-center items-center" align='center'>
+        <div className="bg-gray-800 rounded-lg shadow-gray-700 justify-center shadow-2xl max-w-fit">
           {activeForm === 'addBook' && <AddBook />}
           {activeForm === 'addBorrower' && <AddBorrower />}
           {activeForm === 'addAuthor' && <AddAuthor />}
