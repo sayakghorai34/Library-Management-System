@@ -27,7 +27,6 @@ npm start
 ```
 5. Open the browser and navigate to `http://localhost:3000/` to view the client
 
-
 # Note
     - Test(useless).js is just a checking file to see if the server is running or not. It is not a part of the project.
 
