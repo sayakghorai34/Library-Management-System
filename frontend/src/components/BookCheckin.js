@@ -146,7 +146,7 @@ const CheckinBook = ({ onGoHomeClick }) => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold text-center mb-6">Checkin Book</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">Book Checkin</h1>
       <SearchBar onSearch={handleSearch} />
       <BookList books={books} onSelectBook={handleSelectBook} />
       {selectedBook && (
