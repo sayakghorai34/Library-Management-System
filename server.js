@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const cors = require('cors');
 const bookRoutes = require('./routes/bookRoutes');
 const borrowerRoutes = require('./routes/borrowerRoutes');
@@ -11,20 +12,20 @@ app.use(express.json());
 app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/Library_DB', {
+mongoose.connect(`${process.env.MONGODB_URI}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  dbName: 'Library_DB'
 });
 const db = mongoose.connection;
 
-// Routes
 app.use('/api/books', bookRoutes);
 app.use('/api/borrowers', borrowerRoutes);
 app.use('/api/authors', authorRoutes);
 app.use('/api/counts', countRoutes);
 
 // Start the server
-const PORT = 5500;
+const PORT = `${process.env.PORT}` || 5500;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
