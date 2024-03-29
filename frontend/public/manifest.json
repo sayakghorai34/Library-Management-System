@@ -3,13 +3,24 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "app_logo_small_32x32",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "app_logo_small_64x64",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "app_logo_small_128x128",
+      "sizes": "128x128",
       "type": "image/x-icon"
     }
+
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#003366",
   "background_color": "#ffffff"
 }

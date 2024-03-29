@@ -15,7 +15,7 @@ app.use(cors());
 mongoose.connect(`${process.env.MONGODB_URI}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  dbName: 'Library_DB'
+  dbName: 'Library_DB' //You may change the database name
 });
 const db = mongoose.connection;
 

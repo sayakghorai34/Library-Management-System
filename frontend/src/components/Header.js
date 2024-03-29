@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Logo from '../app_logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp, faBook, faUser, faEdit, faCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -44,7 +45,10 @@ const Header = ({ onAddBookClick, onAddBorrowerClick, onAddAuthorClick, onUpdate
   return (
     <div className="bg-gradient-to-r from-slate-900 to-blue-900 p-4 rounded-t-lg">
       <div className="container mx-auto flex items-left">
-        <h1 onClick={goHome} className="text-blue-300 text-2xl lg:text-3xl xl:text-4xl font-bold tracking-wide ml-auto justify-start">Library Manager</h1>
+      <h1 onClick={goHome} className="flex items-center text-blue-300 text-2xl lg:text-3xl xl:text-4xl font-bold tracking-wide ml-auto justify-start">
+        <img src={Logo} alt="Logo" className="mr-2 w-8 h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12" />
+        <span className="hidden lg:block">Library Manager</span>
+      </h1>
         <div className="flex space-x-2 ml-auto justify-end">
           <div className="relative inline-block" ref={dropdownRef}>
             <button onClick={toggleDropdown} className="bg-blue-900 text-white px-4 py-2 rounded font-semibold hover:bg-blue-800 focus:ring-4 focus:ring-blue-600">

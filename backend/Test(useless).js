@@ -14,11 +14,6 @@ mongoose.connect('mongodb://localhost:27017/Library_DB', {
 const db = mongoose.connection;
 
 
-
-
-
-
-
 app.post('/api/books', async (req, res) => {
   try {
     const { title, authorName, category, price } = req.body;
