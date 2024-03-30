@@ -101,7 +101,8 @@
  - The "Save as PDF" button is available only in the Book Checkout page.
  - Its not explicitly TypeSafe
  - The code may not be very optimal but it is working fine.
-
+ - `books` to `authors` and `books` to `borrowers` are one-to-one relationship
+ - `authors` to `books` and `borrowers` to `books` are one-to-many relationship
 
 # Contributed by:
  - Sayak Ghorai [(github/sayakghorai34)](https://github.com/sayakghorai34), 29th May 2024 

@@ -48,6 +48,7 @@ npm start
  - Run the server before running the client(else the client will not fetch data until the server is running)
  - The project is still under development and some features may not work as expecte 
  - the `npm start` command will start the server using nodemon. To change the behaviour, change the `start` script in `package.json` file in the `backend` directory
+ - The project is still under development and hence the Demo UI or the video may not be exact same as the current UI
 
 # Contributed by:
  - Sayak Ghorai [(github/sayakghorai34)](https://github.com/sayakghorai34), 29th May 2024 
