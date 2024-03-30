@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 
 const ItemList = ({ items, onSelectItem, itemType, isVisible }) => {
@@ -18,7 +18,11 @@ const ItemList = ({ items, onSelectItem, itemType, isVisible }) => {
               <>
                 {item.borrowerName} - {item.borrowerEmail}
               </>
-            ) : null}
+            ) : itemType ==='author' ? (
+              <>
+                {item.authorName} - {item.authorEmail}
+              </>
+            ) : null }
           </div>
         ))}
       </div>
