@@ -22,7 +22,10 @@ const ItemList = ({ items, onSelectItem, itemType, isVisible }) => {
               <>
                 {item.authorName} - {item.authorEmail}
               </>
-            ) : null }
+            ) :itemType ==='bookcheckin' ?(
+              <>
+                {item.title} - {item.category} - {item.price} -Borrowed by: {item.borrower.borrowerName}
+              </>): null }
           </div>
         ))}
       </div>

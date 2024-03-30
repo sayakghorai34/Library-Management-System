@@ -101,7 +101,7 @@ const CheckinBook = () => {
       <h1 className="text-2xl font-bold text-center mb-6">Book Checkin</h1>
       {!selectedBook? (<>
       <SearchBar onSearch={handleSearch} selectedItem={selectedBook} placeholder="Search Books..." />
-      <ItemList items={books} onSelectItem={handleSelectBook} itemType="book" isVisible={showBookList} />
+      <ItemList items={books} onSelectItem={handleSelectBook} itemType="bookcheckin" isVisible={showBookList} />
       </>): (
         <>
         <form onSubmit={(e) => e.preventDefault()} className='w-screen max-w-md'>
