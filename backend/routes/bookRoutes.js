@@ -117,6 +117,7 @@ router.get('/searchout', async (req, res) => {
         { borrower: null }
       ]
     }).populate('author');
+    // console.log('Books:', books);
     res.status(200).json(books);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -130,7 +131,12 @@ router.get('/searchin', async (req, res) => {
     const regex = new RegExp(query, 'i');
     // console.log('Regex:', regex);
 
-    const books = await Book.find({ $and: [{ $or: [{ title: regex }, { category: regex }] }, { borrower: { $ne: null } }] }).populate('author');
+    const books = await Book.find({ 
+      $and: [{$or: [{ title: regex }, { category: regex }]}, 
+            {borrower: { $ne: null } }] 
+      }).populate('author');
+
+
     // console.log('Books:', books);
 
     res.status(200).json(books);
@@ -144,8 +150,8 @@ router.get('/search', async (req, res) => {
   try {
     const query = req.query.query;
     const regex = new RegExp(query, 'i');
-    // console.log('Regex:', regex);
 
+    // console.log('Regex:', regex);
     const books = await Book.find({ $or: [{ title: regex }, { category: regex }] }).populate('author');
     // console.log('Books:', books);
 

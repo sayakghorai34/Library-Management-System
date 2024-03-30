@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch, placeholder_text }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = () => {
@@ -11,7 +11,7 @@ const SearchBar = ({ onSearch }) => {
     <div className="flex justify-center mb-4">
       <input
         type="text"
-        placeholder="Search book..."
+        placeholder={placeholder_text}
         className="border text-gray-500 bg-gray-200 border-gray-300 rounded-lg p-2 w-64 mr-2"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
@@ -147,7 +147,7 @@ const CheckinBook = ({ onGoHomeClick }) => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold text-center mb-6">Book Checkin</h1>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} placeholder_text="Search Books..." />
       <BookList books={books} onSelectBook={handleSelectBook} />
       {selectedBook && (
         <form onSubmit={(e) => e.preventDefault()} className='w-screen max-w-md'>

@@ -17,3 +17,7 @@ body {
 .min-h-screen {
   min-height: 80vh;
 }
+
+.max-w-22{
+  max-width: 22rem;
+}
