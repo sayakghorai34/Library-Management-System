@@ -2,23 +2,6 @@ import React, { useState } from 'react';
 import SearchBar from '../search_comp/SearchBar';
 import ItemList from '../search_comp/ItemList';
 
-
-const BookList = ({ books, onSelectBook }) => {
-  return (
-    <div className="mb-4">
-      {books.map((book) => (
-        <div
-          key={book._id}
-          className="bg-gray-700 p-2 rounded-lg mb-2 cursor-pointer"
-          onClick={() => onSelectBook(book)}
-        >
-          {book.title} - {book.borrowerName} - {book.price}
-        </div>
-      ))}
-    </div>
-  );
-};
-
 const CheckinBook = () => {
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
@@ -35,6 +18,7 @@ const CheckinBook = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URI}/books/searchin?query=${query}`);
       const data = await response.json();
+      console.log(data);
       setBooks(data);
     } catch (error) {
       console.error('Error fetching books:', error);
@@ -49,19 +33,11 @@ const CheckinBook = () => {
       if (!borrowerId) {
         throw new Error('Borrower ID not found');
       }
-  
-      const borrowerResponse = await fetch(`${process.env.REACT_APP_API_URI}/borrowers/${borrowerId}`);
-      if (!borrowerResponse.ok) {
-        throw new Error('Error fetching borrower details');
-      } //This can be optimised...
-      
-      const borrowerData = await borrowerResponse.json();
-      // console.log(borrowerData);
       setSelectedBook(book)
       setShowBookList(false);
       setFormData({
         title: book.title,
-        borrowerName: borrowerData?.borrowerName || '', 
+        borrowerName: book.borrower.borrowerName || '', 
         category: book.category || '', 
         price: book.price ? book.price.toString() : '', 
       });
@@ -106,6 +82,7 @@ const CheckinBook = () => {
           console.log('Book checked in successfully!');
           setConfirmCheckin('');
           setSelectedBook(null);
+          setShowBookList(true);
           setBooks([]);
         } else {
           throw new Error('Failed to check in book');
@@ -122,11 +99,10 @@ const CheckinBook = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold text-center mb-6">Book Checkin</h1>
-      {!selectedBook && (<>
+      {!selectedBook? (<>
       <SearchBar onSearch={handleSearch} selectedItem={selectedBook} placeholder="Search Books..." />
       <ItemList items={books} onSelectItem={handleSelectBook} itemType="book" isVisible={showBookList} />
-      </>)}
-      {selectedBook && (
+      </>): (
         <>
         <form onSubmit={(e) => e.preventDefault()} className='w-screen max-w-md'>
           <div className="bg-gray-700 rounded-lg p-4 mt-4">

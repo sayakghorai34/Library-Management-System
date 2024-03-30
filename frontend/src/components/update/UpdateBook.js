@@ -1,47 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import SearchBar from '../search_comp/SearchBar';
+import ItemList from '../search_comp/ItemList';
 
-const SearchBar = ({ onSearch }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearch = () => {
-    onSearch(searchQuery);
-  };
-
-  return (
-    <div className="flex justify-center mb-4">
-      <input
-        type="text"
-        placeholder="Search book..."
-        className="border bg-gray-200 border-gray-300 rounded-lg p-2 w-64 mr-2"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
-      <button
-        type="button"
-        className="bg-blue-700 text-white py-2 px-4 rounded font-semibold hover:bg-blue-600 focus:ring-4 focus:ring-blue-500"
-        onClick={handleSearch}
-      >
-        Search
-      </button>
-    </div>
-  );
-};
-
-const BookList = ({ books, onSelectBook }) => {
-  return (
-    <div className="mb-4">
-      {books.map((book) => (
-        <div
-          key={book._id}
-          className="bg-gray-700 p-2 rounded-lg mb-2 cursor-pointer"
-          onClick={() => onSelectBook(book)}
-        >
-          {book.title} - {book.authorName} - {book.category} - {book.price}
-        </div>
-      ))}
-    </div>
-  );
-};
 
 const UpdateBook = () => {
   const [formData, setFormData] = useState({
@@ -53,6 +13,7 @@ const UpdateBook = () => {
 
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
+  const [showBookList, setShowBookList] = useState(true);
 
   const handleSearch = async (query) => {
     try {
@@ -72,16 +33,11 @@ const UpdateBook = () => {
       if (!authorId) {
         throw new Error('Author ID not found');
       }
-  
-      const authorResponse = await fetch(`${process.env.REACT_APP_API_URI}/authors/${authorId}`);
-      if (!authorResponse.ok) {
-        throw new Error('Error fetching author details');
-      }
       
-      const authorData = await authorResponse.json();
+      setShowBookList(false);
       setFormData({
         title: book.title,
-        authorName: authorData?.authorName || '', 
+        authorName: book?.author.authorName || '', 
         category: book.category || '', 
         price: book.price ? book.price.toString() : '', 
       });
@@ -95,7 +51,18 @@ const UpdateBook = () => {
       });
     }
   };
-  
+
+  const handleReset = () => {
+    setFormData({
+      title: '',
+      authorName: '',
+      category: '',
+      price: ''
+    });
+    setBooks([]);
+    setSelectedBook(null);
+    setShowBookList(true);
+  };
   
 
   const handleChange = (e) => {
@@ -120,6 +87,7 @@ const UpdateBook = () => {
         alert('Book updated successfully');
         console.log('Book updated successfully!');
         setSelectedBook(null);
+        setShowBookList(true);
         setBooks([]);
         setFormData({
           title: '',
@@ -146,11 +114,12 @@ const UpdateBook = () => {
   return (
     <div className="p-14">
       <h1 className="text-2xl font-bold text-center mb-6">Update Book Details</h1>
-      <div className="text-gray-500">
-        <SearchBar onSearch={handleSearch} />
-        <BookList books={books} onSelectBook={handleSelectBook} />
-      </div>
-      {selectedBook && (<form onSubmit={handleSubmit} className='w-screen max-w-md'>
+      {!selectedBook ? (<>
+      <SearchBar onSearch={handleSearch} selectedItem={selectedBook} placeholder="Search Books..." />
+      <ItemList items={books} onSelectItem={handleSelectBook} itemType="book" isVisible={showBookList} />
+      </>): (
+        <>
+      <form onSubmit={handleSubmit} className='w-screen max-w-md'>
         <div className="bg-gray-700 rounded-lg p-4 mb-2">
           <div className="mb-4">
             <label htmlFor="title" className="block">Book Title</label>
@@ -207,7 +176,13 @@ const UpdateBook = () => {
         <button type="submit" className="bg-blue-700 text-white py-4 w-full rounded font-semibold hover:bg-blue-600 focus:ring-4 focus:ring-blue-500">
           Update Book
         </button>
-      </form>)}
+      </form>
+      <div className="mt-2">
+        <button onClick={handleReset} className="bg-red-100 text-red-500 py-4 mb-4 w-full rounded font-semibold hover:bg-red-200 ring-4 ring-red-300 focus:ring-4 focus:ring-red-500">
+          Clear
+        </button>
+        </div>
+      </>)}
     </div>
   );
 };
