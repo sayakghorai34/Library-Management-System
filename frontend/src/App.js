@@ -19,16 +19,14 @@ import DeleteBook from './components/delete/DeleteBook.js';
 
 
 function App() {
-  const [activeForm, setActiveForm] = useState('goToHome'); // Track the currently active form
-  // const [showHomePage, setShowHomePage] = useState(false); // Track if the homepage should be shown
+  const [activeForm, setActiveForm] = useState('goToHome');
 
   const handleButtonClick = (formName) => {
     setActiveForm(formName);
   };
 
   const handleGoHomeClick = () => {
-    // setShowHomePage(true); // Show the homepage
-    setActiveForm('goToHome'); // Set the active form to 'goToHome'
+    setActiveForm('goToHome');
   };
 
   return (
