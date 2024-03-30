@@ -69,9 +69,9 @@ const Home = () => {
             <StatCard title="Total Borrowers" count={counts.borrowers} />
           </Card>
           <Card>
-            <StatCard title="Books with Borrowers" count={counts.booksWithBorrower} />
+            <StatCard title="Checked Out Books" count={counts.booksWithBorrower} />
             <StatCard title="Borrowers without Books" count={counts.borrowersWithoutBook} />
-            <StatCard title="Remaining Free Books" count={parseInt(counts.books) - parseInt(counts.booksWithBorrower)} />
+            <StatCard title="Remaining Books" count={parseInt(counts.books) - parseInt(counts.booksWithBorrower)} />
           </Card>
         </div>
       </div>

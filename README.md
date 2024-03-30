@@ -20,7 +20,7 @@ cd Library-Management-System
 cd backend
 npm install
 ```
-4. rename the `.env.example` file to `.env` and add the following environment variables
+4. Locate and rename the `.env.example` file in the `backend` to `.env` and add the following environment variables
 ```
 PORT=define any suitable port
 MONGODB_URI=your mongodb connection string
@@ -35,8 +35,20 @@ npm start
 cd frontend
 npm install
 ```
-2. rename the `.env.example` file to `.env` and add the following environment variables
+2. rename the `.env.example` file in the `frontend` to `.env` and add the following environment variables:
+```
+REACT_APP_API_URI=http://localhost:<port>/api
+```
+(Note: the URI should end with `/api`. Else The below modification needs to be done on the `backend/server.js`)
+```
+app.use('/api/books', bookRoutes);  //replace these /api with your URI trailer
 
+app.use('/api/borrowers', borrowerRoutes);  //replace these /api with your URI trailer
+
+app.use('/api/authors', authorRoutes);  //replace these /api wwith your URI trailer
+
+app.use('/api/counts', countRoutes);    //replace these /api wwith your URI trailer
+```
 3. Run the following command to start the client
 ```
 npm start
