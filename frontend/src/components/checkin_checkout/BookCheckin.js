@@ -1,31 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import SearchBar from '../search_comp/SearchBar';
+import ItemList from '../search_comp/ItemList';
 
-const SearchBar = ({ onSearch, placeholder_text }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearch = () => {
-    onSearch(searchQuery);
-  };
-
-  return (
-    <div className="flex justify-center mb-4">
-      <input
-        type="text"
-        placeholder={placeholder_text}
-        className="border text-gray-500 bg-gray-200 border-gray-300 rounded-lg p-2 w-64 mr-2"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
-      <button
-        type="button"
-        className="bg-blue-700 text-white py-2 px-4 rounded font-semibold hover:bg-blue-600 focus:ring-4 focus:ring-blue-500"
-        onClick={handleSearch}
-      >
-        Search
-      </button>
-    </div>
-  );
-};
 
 const BookList = ({ books, onSelectBook }) => {
   return (
@@ -43,10 +19,11 @@ const BookList = ({ books, onSelectBook }) => {
   );
 };
 
-const CheckinBook = ({ onGoHomeClick }) => {
+const CheckinBook = () => {
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [confirmCheckin, setConfirmCheckin] = useState('');
+  const [showBookList, setShowBookList] = useState(true);
   const [formData, setFormData] = useState({
     title: '',
     borrowerName: '',
@@ -76,14 +53,12 @@ const CheckinBook = ({ onGoHomeClick }) => {
       const borrowerResponse = await fetch(`${process.env.REACT_APP_API_URI}/borrowers/${borrowerId}`);
       if (!borrowerResponse.ok) {
         throw new Error('Error fetching borrower details');
-      }
-      else{
-        console.log('Borrower details fetched successfully');
-      }
+      } //This can be optimised...
       
       const borrowerData = await borrowerResponse.json();
-      console.log(borrowerData);
+      // console.log(borrowerData);
       setSelectedBook(book)
+      setShowBookList(false);
       setFormData({
         title: book.title,
         borrowerName: borrowerData?.borrowerName || '', 
@@ -101,11 +76,11 @@ const CheckinBook = ({ onGoHomeClick }) => {
     }
   };
 
-  const handleGoHome = () => {
+  const handleReset = () => {
     setSelectedBook(null);
+    setShowBookList(true);
     setBooks([]);
     setConfirmCheckin('');
-    onGoHomeClick();
   };
 
   const handleCheckin = async () => {
@@ -147,9 +122,12 @@ const CheckinBook = ({ onGoHomeClick }) => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold text-center mb-6">Book Checkin</h1>
-      <SearchBar onSearch={handleSearch} placeholder_text="Search Books..." />
-      <BookList books={books} onSelectBook={handleSelectBook} />
+      {!selectedBook && (<>
+      <SearchBar onSearch={handleSearch} selectedItem={selectedBook} placeholder="Search Books..." />
+      <ItemList items={books} onSelectItem={handleSelectBook} itemType="book" isVisible={showBookList} />
+      </>)}
       {selectedBook && (
+        <>
         <form onSubmit={(e) => e.preventDefault()} className='w-screen max-w-md'>
           <div className="bg-gray-700 rounded-lg p-4 mt-4">
             <div className="mb-4">
@@ -212,20 +190,23 @@ const CheckinBook = ({ onGoHomeClick }) => {
           <div className="mt-4">
             <button
               type="button"
-              className="bg-blue-700 text-white py-4 mb-4 w-full rounded font-semibold hover:bg-blue-800 focus:ring-4 focus:ring-blue-500"
+              className="bg-blue-700 text-white py-4 mb-4 w-full rounded font-semibold hover:bg-blue-600 focus:ring-4 focus:ring-blue-500"
               onClick={handleCheckin}
             >
               Checkin
             </button>
-            <button
-              type="button"
-              className="bg-blue-100 text-blue-700 py-4 w-full rounded font-semibold hover:bg-blue-300 ring-4 ring-blue-400 focus:ring-4 focus:ring-blue-600"
-              onClick={handleGoHome}
-            >
-              Go to Home
-            </button>
           </div>
         </form>
+        <div className="mt-2">
+          <button
+            type="button"
+            className="bg-red-100 text-red-500 py-4 mb-4 w-full rounded font-semibold hover:bg-red-200 ring-2 ring-red-300 focus:ring-4 focus:ring-red-500"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
+      </>
       )}
     </div>
   );

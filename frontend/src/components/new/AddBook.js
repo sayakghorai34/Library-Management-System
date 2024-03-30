@@ -33,7 +33,6 @@ const AddBook = () => {
       if (response.ok) {
         alert('Book added successfully!');
         console.log('Book added successfully!');
-        // Clear form data after successful submission if needed
         setFormData({
           title: '',
           authorName: '',
@@ -49,7 +48,7 @@ const AddBook = () => {
   };
 
   return (
-    <div className='p-14'>
+    <div className='p-8'>
       <h1 className='text-2xl font-bold text-center mb-6'>Add New Book Record</h1>
       <form onSubmit={handleAddBook} className='w-screen max-w-md'>
         <div className='bg-gray-700 rounded-lg p-4 mb-2'> 

@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import Header from './components/Header.js';
-import AddBook from './components/AddBook.js';
-import AddBorrower from './components/AddBorrower.js';
-import BookCheckin from './components/BookCheckin.js';
-import BookCheckout from './components/BookCheckout.js';
-import UpdateBorrower from './components/UpdateBorrower.js';
-import UpdateAuthor from './components/UpdateAuthor.js';
-import UpdateBook from './components/UpdateBook.js';
-import DeleteBorrower from './components/DeleteBorrower.js';
-import DeleteBook from './components/DeleteBook.js';
+
 import Home from './components/Home.js';
-import AddAuthor from './components/AddAuthor.js';
+import Header from './components/Header.js';
+
+import AddBook from './components/new/AddBook.js';
+import AddAuthor from './components/new/AddAuthor.js';
+import AddBorrower from './components/new/AddBorrower.js';
+
+import BookCheckin from './components/checkin_checkout/BookCheckin.js';
+import BookCheckout from './components/checkin_checkout/BookCheckout.js';
+
+import UpdateBorrower from './components/update/UpdateBorrower.js';
+import UpdateAuthor from './components/update/UpdateAuthor.js';
+import UpdateBook from './components/update/UpdateBook.js';
+
+import DeleteBorrower from './components/delete/DeleteBorrower.js';
+import DeleteBook from './components/delete/DeleteBook.js';
+
 
 function App() {
   const [activeForm, setActiveForm] = useState('goToHome'); // Track the currently active form
@@ -38,7 +44,6 @@ function App() {
         onDeleteBorrowerClick={() => handleButtonClick('deleteBorrower')}
         onCheckinClick={() => handleButtonClick('checkinBook')}
         onCheckoutClick={() => handleButtonClick('checkoutBook')}
-        onGoHomeClick={handleGoHomeClick} 
         goHome={handleGoHomeClick}
       />
       <div className="min-h-screen text-white flex justify-center items-center" align='center'>

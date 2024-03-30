@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CheckoutReceipt from './CheckoutReceipt';
-import SearchBar from './SearchBar';
-import ItemList from './ItemList';
+import SearchBar from '../search_comp/SearchBar';
+import ItemList from '../search_comp/ItemList';
 
 
 const BookCheckout = () => {

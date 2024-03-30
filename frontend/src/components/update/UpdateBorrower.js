@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import SearchBar from './SearchBar';
-import ItemList from './ItemList';
+import SearchBar from '../search_comp/SearchBar';
+import ItemList from '../search_comp/ItemList';
 
 const UpdateBorrower = () => {
   const [showBorrowerList, setShowBorrowerList] = useState(true);
