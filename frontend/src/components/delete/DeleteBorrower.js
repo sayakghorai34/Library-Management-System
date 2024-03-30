@@ -54,7 +54,7 @@ const DeleteBorrower = ({ onGoHomeClick }) => {
 
   const handleSearch = async (query) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URI}/borrowers/search?query=${query}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URI}/borrowers/searchdel?query=${query}`);
       const data = await response.json();
       setBorrowers(data);
     } catch (error) {

@@ -51,6 +51,26 @@ router.get('/search', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+router.get('/searchdel', async (req, res) => {
+  try {
+    const query = req.query.query;
+    const regex = new RegExp(query, 'i'); 
+    const borrowers = await Borrower.find({
+      $and :[{$or: [
+        { borrowerName: { $regex: regex } }, 
+        { borrowerEmail: { $regex: regex } }, 
+        { borrowerPhone: { $regex: regex } }, 
+        { borrowerAddress: { $regex: regex } }, 
+      ]},
+      {books: []}
+    ]});
+    res.json(borrowers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const borrowerId = req.params.id;
