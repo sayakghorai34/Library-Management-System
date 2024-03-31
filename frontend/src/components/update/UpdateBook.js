@@ -28,28 +28,17 @@ const UpdateBook = () => {
 
   const handleSelectBook = async (book) => {
     setSelectedBook(book);
-    try {
-      const authorId = book.author?._id; 
-      if (!authorId) {
-        throw new Error('Author ID not found');
-      }
-      
-      setShowBookList(false);
-      setFormData({
-        title: book.title,
-        authorName: book?.author.authorName || '', 
-        category: book.category || '', 
-        price: book.price ? book.price.toString() : '', 
-      });
-    } catch (error) {
-      console.error('Error fetching author details:', error);
-      setFormData({
-        title: book.title,
-        authorName: '', 
-        category: '', 
-        price: '', 
-      });
+    const authorId = book.author?._id; 
+    if (!authorId) {
+      throw new Error('Author ID not found');
     }
+    setShowBookList(false);
+    setFormData({
+      title: book.title,
+      authorName: book?.author.authorName || '', 
+      category: book.category || '', 
+      price: book.price ? book.price.toString() : '', 
+    });
   };
 
   const handleReset = () => {

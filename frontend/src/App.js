@@ -52,9 +52,9 @@ function App() {
           {activeForm === 'updateBook' && <UpdateBook />}
           {activeForm === 'updateAuthor' && <UpdateAuthor />}
           {activeForm === 'updateBorrower' && <UpdateBorrower />}
-          {activeForm === 'deleteBorrower' && <DeleteBorrower onGoHomeClick={handleGoHomeClick} />} 
-          {activeForm === 'deleteBook' && <DeleteBook onGoHomeClick={handleGoHomeClick} />}
-          {activeForm === 'checkinBook' && <BookCheckin onGoHomeClick={handleGoHomeClick} />}
+          {activeForm === 'deleteBorrower' && <DeleteBorrower/>} 
+          {activeForm === 'deleteBook' && <DeleteBook/>}
+          {activeForm === 'checkinBook' && <BookCheckin />}
           {activeForm === 'checkoutBook' && <BookCheckout />}
           {activeForm === 'goToHome' && <Home />}
         </div>

@@ -165,7 +165,7 @@ router.get("/search", async (req, res) => {
     const regex = new RegExp(query, "i");
     const books = await Book.find({
       $or: [{ title: regex }, { category: regex }],
-    }).populate("author");
+    }).populate("author").populate("borrower");
     res.status(200).json(books);
   } catch (error) {
     console.error("Error:", error);

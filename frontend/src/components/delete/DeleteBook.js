@@ -1,52 +1,12 @@
 import React, { useState } from 'react';
+import SearchBar from '../search_comp/SearchBar';
+import ItemList from '../search_comp/ItemList';
 
-const SearchBar = ({ onSearch }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearch = () => {
-    onSearch(searchQuery);
-  };
-
-  return (
-    <div className="flex justify-center mb-4">
-      <input
-        type="text"
-        placeholder="Search book..."
-        className="border text-gray-500 bg-gray-200 border-gray-300 rounded-lg p-2 w-64 mr-2"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
-      <button
-        type="button"
-        className="bg-blue-700 text-white py-2 px-4 rounded font-semibold hover:bg-blue-600 focus:ring-4 focus:ring-blue-500"
-        onClick={handleSearch}
-      >
-        Search
-      </button>
-    </div>
-  );
-};
-
-const BookList = ({ books, onSelectBook }) => {
-  return (
-    <div className="mb-4">
-      {books.map((book) => (
-        <div
-          key={book._id}
-          className="bg-gray-700 p-2 rounded-lg mb-2 cursor-pointer"
-          onClick={() => onSelectBook(book)}
-        >
-          {book.title} - {book.authorName} - {book.category} - {book.price}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-const DeleteBook = ({ onGoHomeClick }) => {
+const DeleteBook = () => {
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState('');
+  const [showBookList, setShowBookList] = useState(true);
   const [formData, setFormData] = useState({
     title: '',
     authorName: '',
@@ -67,49 +27,31 @@ const DeleteBook = ({ onGoHomeClick }) => {
 
   const handleSelectBook = async (book) => {
     setSelectedBook(book);
-    try {
-      const authorId = book.author?._id; 
-      if (!authorId) {
-        throw new Error('Author ID not found');
-      }
-  
-      const authorResponse = await fetch(`${process.env.REACT_APP_API_URI}/authors/${authorId}`);
-      if (!authorResponse.ok) {
-        throw new Error('Error fetching author details');
-      }
-      
-      const authorData = await authorResponse.json();
-      setFormData({
-        title: book.title,
-        authorName: authorData?.authorName || '', 
-        category: book.category || '', 
-        price: book.price ? book.price.toString() : '', 
-      });
-    } catch (error) {
-      console.error('Error fetching author details:', error);
-      setFormData({
-        title: book.title,
-        authorName: '', 
-        category: '', 
-        price: '', 
-      });
-    }
+    setShowBookList(false);
+    setFormData({
+      title: book.title,
+      authorName: book?.author.authorName || '', 
+      category: book.category || '', 
+      price: book.price ? book.price.toString() : '', 
+    });
   };
 
-  const handleGoHome = () => {
-    setSelectedBook(null);
+  const handleReset = () => {
+    setFormData({
+      title: '',
+      authorName: '',
+      category: '',
+      price: ''
+    });
     setBooks([]);
+    setSelectedBook(null);
+    setShowBookList(true);
     setConfirmDelete('');
-    onGoHomeClick();
   };
 
   const handleDelete = async () => {
     if (confirmDelete === 'delete' && selectedBook) {
-      const { _id: bookId, author } = selectedBook;
-      if (!author?._id) {
-        console.error('Author ID not found in selected book.');
-        return;
-      }
+      const { _id: bookId, author } = selectedBook
 
       const requestBody = {
         bookId,
@@ -140,34 +82,42 @@ const DeleteBook = ({ onGoHomeClick }) => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-14">
       <h1 className="text-2xl font-bold text-center mb-6">Delete Book</h1>
-      <SearchBar onSearch={handleSearch} />
-      <BookList books={books} onSelectBook={handleSelectBook} />
-      {selectedBook && (
-        <form onSubmit={(e) => e.preventDefault()} className='w-screen max-w-md'>
-          <div className="bg-gray-700 rounded-lg p-4 mt-4">
-            <div className="mb-4">
-              <label htmlFor="title" className="block">Title</label>
-              <input
-                type="text"
-                id="title"
-                className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-2 w-full"
-                value={formData.title}
-                readOnly
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="authorName" className="block">Author Name</label>
-              <input
-                type="text"
-                id="authorName"
-                className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-2 w-full"
-                value={formData.authorName}
-                readOnly
-                />
-            </div>
-            <div className="mb-4">
+      {!selectedBook ? (<>
+      <SearchBar onSearch={handleSearch} selectedItem={selectedBook} placeholder="Search Books..." />
+      <ItemList items={books} onSelectItem={handleSelectBook} itemType="book" isVisible={showBookList} />
+      </>): (
+        <>
+      <form className='w-screen max-w-md'>
+        <div className="bg-gray-700 rounded-lg p-4 mb-2">
+          <div className="mb-4">
+            <label htmlFor="title" className="block">Book Title</label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Book Title"
+              required
+              readOnly
+              className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-4 w-full"
+              value={formData.title}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="authorName" className="block">Author Name</label>
+            <input
+              type="text"
+              name="authorName"
+              id="authorName"
+              placeholder="Author Name"
+              required
+              readOnly
+              className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-4 w-full"
+              value={formData.authorName}
+            />
+          </div>
+          <div className="mb-4">
             <label htmlFor="category" className="block">Category</label>
             <input
               type="text"
@@ -177,51 +127,44 @@ const DeleteBook = ({ onGoHomeClick }) => {
               className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-4 w-full"
               value={formData.category}
               readOnly
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="price" className="block">Price</label>
-              <input
-                type="number"
-                name="price"
-                id="price"
-                placeholder="Price"
-                required
-                className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-4 w-full"
-                value={formData.price}
-                readOnly
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="confirm_delete" className="block">Confirm Delete</label>
-              <input
-                type="text"
-                id="confirm_delete"
-                placeholder="Type 'delete' to confirm"
-                className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-2 w-full"
-                value={confirmDelete}
-                onChange={(e) => setConfirmDelete(e.target.value)}
-              />
-            </div>
+            />
           </div>
-          <div className="mt-4">
-            <button
-              type="button"
-              className="bg-blue-700 text-white py-4 mb-4 w-full rounded font-semibold hover:bg-blue-800 focus:ring-4 focus:ring-blue-500"
-              onClick={handleGoHome}
-            >
-              Go Home
-            </button>
-            <button
-              type="button"
-              className="bg-red-100 text-red-700 py-4 w-full rounded font-semibold hover:bg-red-300 ring-4 ring-red-400 focus:ring-4 focus:ring-red-600"
-              onClick={handleDelete}
-            >
-              Confirm Delete
-            </button>
+          <div className="mb-4">
+            <label htmlFor="price" className="block">Price</label>
+            <input
+              type="number"
+              name="price"
+              id="price"
+              placeholder="Price"
+              required
+              className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-4 w-full"
+              value={formData.price}
+              readOnly
+            />
           </div>
-        </form>
-      )}
+          <div className="mb-4">
+            <label htmlFor="confirm_delete" className="block">Price</label>
+            <input
+              type="text"
+              name="confirm_delete"
+              id="confirm_delete"
+              placeholder="Type 'delete' to confirm"
+              required
+              className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-4 w-full"
+              onChange={(e) => setConfirmDelete(e.target.value)}
+            />
+          </div>
+        </div>
+      </form>
+      <div className="mt-2">
+        <button onClick={handleReset} className="bg-blue-700 text-white py-4 mb-4 w-full rounded font-semibold hover:bg-blue-600 focus:ring-4 focus:ring-blue-500">
+          Cancel
+        </button>
+        <button onClick={handleDelete} className="bg-red-100 text-red-500 py-4 mb-4 w-full rounded font-semibold hover:bg-red-200 ring-2 ring-red-300 focus:ring-4 focus:ring-red-500">
+          Delete
+        </button>
+        </div>
+      </>)}
     </div>
   );
 };
