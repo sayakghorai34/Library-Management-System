@@ -10,7 +10,7 @@ const SearchBar = ({ placeholder, onSearch, selectedItem }) => {
     return (
       <div className="flex justify-center mb-4">
         {selectedItem ? (
-          <div className="border text-gray-500 bg-gray-200 border-gray-300 rounded-lg p-2 w-64 mr-2">
+          <div className="border text-gray-500 bg-gray-200 border-gray-300 rounded-md p-2 w-64 mr-2">
             {selectedItem.title ? `Selected Book: ${selectedItem.title}` : `Selected Borrower: ${selectedItem.borrowerName}`}
           </div>
         ) : (

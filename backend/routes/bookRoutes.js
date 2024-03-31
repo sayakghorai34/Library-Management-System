@@ -4,7 +4,6 @@ const Book = require("../models/Book");
 const Author = require("../models/Author");
 const Borrower = require("../models/Borrower");
 
-// Route to create a new book
 router.post("/", async (req, res) => {
   try {
     const { title, authorName, category, price } = req.body;
@@ -123,13 +122,13 @@ router.put("/checkout", async (req, res) => {
 router.get("/searchout", async (req, res) => {
   try {
     const query = req.query.query;
-    const regex = new RegExp(query, "i"); // Case-insensitive search
+    const regex = new RegExp(query, "i");
     const books = await Book.find({
       $and: [
         { $or: [{ title: regex }, { category: regex }] },
         { borrower: null },
       ],
-    }).populate("author");
+    }).populate("author").populate("borrower");
     // console.log('Books:', books);
     res.status(200).json(books);
   } catch (error) {
@@ -148,7 +147,7 @@ router.get("/searchin", async (req, res) => {
         { $or: [{ title: regex }, { category: regex }] },
         { borrower: { $ne: null } },
       ],
-    }).populate("borrower");
+    }).populate("borrower").populate("author");
 
     // console.log('Books:', books);
 

@@ -6,7 +6,8 @@ const UpdateAuthor = () => {
   const [showAuthorList, setShowAuthorList] = useState(true);
   const [formData, setFormData] = useState({
     authorName: '',
-    authorEmail: ''
+    authorEmail: '',
+    authorPhone: ''
   });
 
   const [authors, setAuthors] = useState([]);
@@ -31,12 +32,14 @@ const UpdateAuthor = () => {
     try {
       setFormData({
         authorName: author.authorName,
-        authorEmail: author.authorEmail
+        authorEmail: author.authorEmail,
+        authorPhone: author.authorPhone
       });
     } catch (error) {
       setFormData({
         authorName: author.authorName,
-        authorEmail: ''
+        authorEmail: '',
+        authorPhone: ''
       });
     }
   };
@@ -77,7 +80,8 @@ const UpdateAuthor = () => {
   const handleReset = () => {
     setFormData({
       authotName: '',
-      authorEmail: ''
+      authorEmail: '',
+      authorPhone: ''
     });
     setSelectedAuthor(null);
     setAuthors([]);
@@ -88,7 +92,8 @@ const UpdateAuthor = () => {
     if (selectedAuthor) {
       setFormData({
         authorName: selectedAuthor.authorName,
-        authorEmail: selectedAuthor.authorEmailEmail
+        authorEmail: selectedAuthor.authorEmailEmail,
+        authorPhone: selectedAuthor.authorPhone
       });
     }
   }, [selectedAuthor]);
@@ -130,6 +135,18 @@ const UpdateAuthor = () => {
                 onChange={handleChange}
               />
             </div>
+            <div className="mb-4">
+              <label htmlFor="author_phone" className="block">Phone</label>
+              <input
+                type="tel"
+                name="authorPhone"
+                id="author_phone"
+                placeholder="Author's Phone Number"
+                className="border bg-gray-200 text-gray-500 border-gray-300 rounded-lg p-2 w-full"
+                value={formData.authorPhone}
+                onChange={handleChange}
+              />
+            </div>
           </div>
           <div className="mt-4">
             <button type="submit" className="bg-blue-700 text-white py-4 w-full rounded font-semibold hover:bg-blue-600 focus:ring-4 focus:ring-blue-500">
@@ -138,8 +155,8 @@ const UpdateAuthor = () => {
           </div>
         </form>
         <div className="mt-2">
-        <button onClick={handleReset} className="bg-red-100 text-red-500 py-4 mb-4 w-full rounded font-semibold hover:bg-red-200 ring-4 ring-red-300 focus:ring-4 focus:ring-red-500">
-          Clear
+        <button onClick={handleReset} className="bg-red-100 text-red-500 py-4 mb-4 w-full rounded font-semibold hover:bg-red-200 ring-4 ring-red-300 focus:ring-4 focus:ring-red-500 focus:cursor-alias">
+          Cancel
         </button>
       </div>
       </>)}

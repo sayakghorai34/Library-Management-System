@@ -49,7 +49,7 @@ router.get('/search', async (req, res) => {
           { authorName: { $regex: regex } }, 
           { authorEmail: { $regex: regex } },  
         ],
-      });
+      }).populate('books');
       res.json(authors);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -73,11 +73,11 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
       const authorId = req.params.id;
-      const { authorName, authorEmail } = req.body;
+      const { authorName, authorEmail, authorPhone } = req.body;
   
       const updatedAuthor = await Author.findByIdAndUpdate(
         authorId,
-        { authorName, authorEmail },
+        { authorName, authorEmail, authorPhone },
         { new: true }
       );
   

@@ -167,8 +167,8 @@ const UpdateBook = () => {
         </button>
       </form>
       <div className="mt-2">
-        <button onClick={handleReset} className="bg-red-100 text-red-500 py-4 mb-4 w-full rounded font-semibold hover:bg-red-200 ring-4 ring-red-300 focus:ring-4 focus:ring-red-500">
-          Clear
+        <button onClick={handleReset} className="bg-red-100 text-red-500 py-4 mb-4 w-full rounded font-semibold hover:bg-red-200 ring-4 ring-red-300 focus:ring-4 focus:ring-red-500 focus:cursor-alias">
+          Cancel
         </button>
         </div>
       </>)}

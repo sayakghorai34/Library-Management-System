@@ -45,7 +45,7 @@ const Header = ({ onAddBookClick, onAddBorrowerClick, onAddAuthorClick, onUpdate
   return (
     <div className="bg-gradient-to-r from-slate-900 to-blue-900 p-4 rounded-t-lg">
       <div className="container mx-auto flex items-left">
-      <h1 onClick={goHome} className="flex items-center text-blue-300 text-2xl lg:text-3xl xl:text-4xl font-bold tracking-wide ml-auto justify-start">
+      <h1 onClick={goHome} className="flex items-center text-blue-300 text-2xl lg:text-3xl xl:text-4xl font-bold tracking-wide ml-auto justify-start hover:cursor-pointer focus:cursor-alias ">
         <img src={Logo} alt="Logo" className="mr-2 w-8 h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12" />
         <span className="hidden lg:block">Library Manager</span>
       </h1>

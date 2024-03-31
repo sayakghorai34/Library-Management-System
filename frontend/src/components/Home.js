@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Home = () => {
+const Home = ({showBooks,showAuthors,showBorrowers,showBorrowersWithoutBook,showCheckoutBooks,showRemainingBooks}) => {
   const [counts, setCounts] = useState({
     books: 0,
     authors: 0,
@@ -43,14 +43,19 @@ const Home = () => {
     return <div className="bg-gray-900 rounded-lg justify-center shadow-md px-4 py-4 mb-1 max-w-xl">{children}</div>;
   };
 
-  const StatCard = ({ title, count }) => {
+  const StatCard = ({ title, count, onClickHandle }) => {
     return (
-      <div className="bg-gray-800 rounded-lg shadow-md px-4 py-2 mb-2">
+      <div
+        className="bg-gray-800 rounded-lg shadow-md px-4 py-2 mb-2 cursor-pointer focus:scale-95 focus:ring-3 focus:ring-blue-400 hover:scale-105 transition-transform transition-ring transition-duration-100"
+        onClick={onClickHandle}
+        tabIndex={0}
+      >
         <p className="font-semibold">{title}:</p>
         <p>{count}</p>
       </div>
     );
   };
+  
 
   return (
     <div className=" justify-center p-8">
@@ -64,14 +69,14 @@ const Home = () => {
       <div className="flex justify-center mt-2">
         <div className="grid grid-cols-2 gap-4">
           <Card>
-            <StatCard title="Total Books" count={counts.books} />
-            <StatCard title="Total Authors" count={counts.authors} />
-            <StatCard title="Total Borrowers" count={counts.borrowers} />
+            <StatCard title="Total Books" onClickHandle={showBooks} count={counts.books} />
+            <StatCard title="Total Authors" onClickHandle={showAuthors} count={counts.authors} />
+            <StatCard title="Total Borrowers" onClickHandle={showBorrowers} count={counts.borrowers} />
           </Card>
           <Card>
-            <StatCard title="Checked Out Books" count={counts.booksWithBorrower} />
-            <StatCard title="Borrowers without Books" count={counts.borrowersWithoutBook} />
-            <StatCard title="Remaining Books" count={parseInt(counts.books) - parseInt(counts.booksWithBorrower)} />
+            <StatCard title="Checked Out Books" onClickHandle={showCheckoutBooks} count={counts.booksWithBorrower} />
+            <StatCard title="Borrowers without Books" onClickHandle={showBorrowersWithoutBook} count={counts.borrowersWithoutBook} />
+            <StatCard title="Remaining Books" onClickHandle={showRemainingBooks} count={parseInt(counts.books) - parseInt(counts.booksWithBorrower)} />
           </Card>
         </div>
       </div>
