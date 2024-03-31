@@ -2,10 +2,9 @@ Go to the link for the UI-Preview: [fronend/README.md](https://github.com/sayakg
 
 ## Basic Run Through of the Project
 
-![Library Management System Demo](https://github.com/sayakghorai34/Library-Management-System/assets/98743263/528a924a-3c8b-4e87-aec5-ca0568a98ff5?autoplay=1)
+https://github.com/sayakghorai34/Library-Management-System/assets/98743263/528a924a-3c8b-4e87-aec5-ca0568a98ff5
 
 
- 
 ## How to run the project
 1. Clone the repository
 ```
