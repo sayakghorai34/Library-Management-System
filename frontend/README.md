@@ -10,12 +10,12 @@
 - # Home
     Library(Database) Information is available here. In case of data not fetched and refreshed properly, force refresh button is given in the page.
 
-    ![alt text](../../../../../Downloads/DemoPreview/image.png)
+    ![alt text](../DemoPreview/image.png)
 
 
 - # New
 
-    ![alt text](../../../../../Downloads/DemoPreview/image-1.png)
+    ![alt text](../DemoPreview/image-1.png)
     
     - Add Book
         User can add book with the following fields:(in case of author is not in Author schema, author will automatically get added with required fields only. later user may update the secondary fields)
