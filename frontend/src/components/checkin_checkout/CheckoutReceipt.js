@@ -3,24 +3,50 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 const CheckoutReceipt = ({ selectedBook, selectedBorrower }) => {
-    const handleSaveAsPDF = () => {
-      const pdfDoc = new jsPDF();
+  const handleSaveAsPDF = () => {
+    const pdfDoc = new jsPDF();
+    
+    pdfDoc.setFont('helvetica');
+    pdfDoc.setFontSize(16);
   
-      pdfDoc.setFont('helvetica');
-      pdfDoc.setFontSize(12);
+    const { width } = pdfDoc.internal.pageSize;
+    const textWidth = pdfDoc.getStringUnitWidth('Checkout Book Receipt') * 6;
+
+    const centerX = (width - textWidth) / 2;
+
+    pdfDoc.text('Checkout Book Receipt', centerX+3, 10);
+    pdfDoc.setFontSize(12);
+    pdfDoc.text('Selected Book Details', 15, 20);
+    const bookData = [
+      ['Title', selectedBook.title],
+      ['Author', selectedBook.author.authorName],
+      ['Category', selectedBook.category],
+      ['Price', `${selectedBook.price.toFixed(2)}/-`],
+    ];
+    pdfDoc.autoTable({
+      startY: 25,
+      head: [],
+      body: bookData,
+      theme: 'grid',
+      styles: { cellPadding: 1, fontSize: 11, fontStyle: 'normal' }
+    });
   
-      pdfDoc.text(`Selected Book`, 10, 10);
-      pdfDoc.text(`Title: ${selectedBook.title}`, 15, 20);
-      pdfDoc.text(`Author: ${selectedBook.author.authorName}`, 15, 30);
+    pdfDoc.text('Selected Borrower Details', 15, pdfDoc.autoTable.previous.finalY + 15);
+    const borrowerData = [
+      ['Name', selectedBorrower.borrowerName],
+      ['Email', selectedBorrower.borrowerEmail],
+      ['Address', selectedBorrower.borrowerAddress],
+    ];
+    pdfDoc.autoTable({
+      startY: pdfDoc.autoTable.previous.finalY + 20,
+      head: [],
+      body: borrowerData,
+      theme: 'grid',
+      styles: { cellPadding: 1, fontSize: 11, fontStyle: 'normal' }
+    });
   
-      pdfDoc.text(`Selected Borrower`, 10, 50);
-      pdfDoc.text(`Name: ${selectedBorrower.borrowerName}`, 15, 60);
-      pdfDoc.text(`Email: ${selectedBorrower.borrowerEmail}`, 15, 70);
-      pdfDoc.text(`Phone Number: ${selectedBorrower.borrowerPhone}`, 15, 80);
-      pdfDoc.text(`Address: ${selectedBorrower.borrowerAddress}`, 15, 90);
-  
-      pdfDoc.save(`CheckoutReceipt-${selectedBook.title}.pdf`);
-    };
+    pdfDoc.save(`CheckoutReceipt-${selectedBook.title}.pdf`);
+  };
   
     return (
       <div className="bg-gray-700 text-left rounded-lg p-8 w-screen max-w-md mb-4">
