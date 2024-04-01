@@ -18,7 +18,7 @@ const DeleteBook = () => {
   const handleSearch = async (query) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URI}/books/searchin?query=${query}`
+        `${process.env.REACT_APP_API_URI}/books/searchout?query=${query}`
       );
       const data = await response.json();
       setBooks(data);
