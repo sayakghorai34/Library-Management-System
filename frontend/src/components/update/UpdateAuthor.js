@@ -16,7 +16,7 @@ const UpdateAuthor = () => {
 
   const handleSearch = async (query) => {
     try {
-        console.log('Query:', query);
+        // console.log('Query:', query);
         const response = await fetch(`${process.env.REACT_APP_API_URI}/authors/search?query=${query}`);
         const data = await response.json();
         setAuthors(data);

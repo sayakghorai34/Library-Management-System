@@ -63,7 +63,7 @@ router.delete("/", async (req, res) => {
   }
 });
 
-// Route to update a book
+
 router.put("/checkin", async (req, res) => {
   try {
     const { bookId, borrowerId } = req.body;
@@ -172,21 +172,48 @@ router.get("/search", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
-  // console.log('Inside put');
+router.put("/", async (req, res) => {
   try {
-    const bookId = req.params.id;
-    const { title, authorName, category, price } = req.body;
+    const { bookId, title, authorName, category, price, preAuthorID } = req.body;
 
-    const book = await Book.findByIdAndUpdate(
+    // Find the previous author using preAuthorID
+    const oldAuthor = await Author.findById(preAuthorID);
+
+    // Find the new author using authorName
+    let newAuthor = await Author.findOne({ authorName });
+
+    // If newAuthor doesn't exist, create a new one
+    if (!newAuthor) {
+      newAuthor = await Author.create({
+        authorName,
+        authorEmail: "",
+        authorPhone: "",
+        books: [bookId],
+      });
+    } else if (newAuthor._id.toString() !== preAuthorID) {
+      // If newAuthor is different from the old author, update both authors
+      newAuthor.books.push(bookId);
+      await newAuthor.save();
+
+      if (oldAuthor) {
+        // Remove the book from the old author's books list
+        oldAuthor.books.pull(bookId);
+        await oldAuthor.save();
+      }
+    }
+
+    // Update the book with new information and the new author's ID
+    const updatedBook = await Book.findByIdAndUpdate(
       bookId,
-      { title, category, price },
+      { title, author: newAuthor._id, category, price },
       { new: true }
     );
-    res.status(200).json(book);
+
+    res.status(200).json(updatedBook);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 module.exports = router;

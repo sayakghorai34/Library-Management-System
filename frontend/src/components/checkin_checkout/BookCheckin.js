@@ -21,7 +21,7 @@ const CheckinBook = () => {
         `${process.env.REACT_APP_API_URI}/books/searchin?query=${query}`
       );
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setBooks(data);
     } catch (error) {
       console.error("Error fetching books:", error);

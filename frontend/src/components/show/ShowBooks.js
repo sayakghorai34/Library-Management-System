@@ -97,7 +97,7 @@ const ShowBooks = ({ type }) => {
         }
 
         const data = await response.json();
-        console.log("Response:", data);
+        // console.log("Response:", data);
         setBooks(data);
       } catch (error) {
         console.error("Error fetching borrowers:", error);
@@ -128,7 +128,7 @@ const ShowBooks = ({ type }) => {
         >
           <SearchBar
             onSearch={setSearchQuery}
-            placeholder={"Search Borrower..."}
+            placeholder={"Search Books..."}
             value={searchQuery}
             className="mb-0"
           />

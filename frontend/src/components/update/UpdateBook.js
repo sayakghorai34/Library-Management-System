@@ -5,15 +5,18 @@ import ItemList from '../search_comp/ItemList';
 
 const UpdateBook = () => {
   const [formData, setFormData] = useState({
+    bookId: '',
     title: '',
     authorName: '',
     category: '',
     price: '',
+    preAuthorID: ''
   });
 
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [showBookList, setShowBookList] = useState(true);
+  const [preAuthorID, setPreAuthorID] = useState(null);
 
   const handleSearch = async (query) => {
     try {
@@ -32,25 +35,31 @@ const UpdateBook = () => {
     if (!authorId) {
       throw new Error('Author ID not found');
     }
+    setPreAuthorID(authorId);
     setShowBookList(false);
     setFormData({
+      bookId: book._id,
       title: book.title,
       authorName: book?.author.authorName || '', 
       category: book.category || '', 
       price: book.price ? book.price.toString() : '', 
+      preAuthorID: authorId
     });
   };
 
   const handleReset = () => {
     setFormData({
+      bookId: '',
       title: '',
       authorName: '',
       category: '',
-      price: ''
+      price: '',
+      preAuthorID: ''
     });
     setBooks([]);
     setSelectedBook(null);
     setShowBookList(true);
+    setPreAuthorID(null);
   };
   
 
@@ -65,7 +74,7 @@ const UpdateBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URI}/books/${selectedBook._id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URI}/books`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -79,10 +88,12 @@ const UpdateBook = () => {
         setShowBookList(true);
         setBooks([]);
         setFormData({
+          bookId: '',
           title: '',
           authorName: '',
           category: '',
-          price: ''
+          price: '',
+          preAuthorID: ''
         })};
     } catch (error) {
       console.error('Error updating book:', error);
@@ -92,10 +103,12 @@ const UpdateBook = () => {
   useEffect(() => {
     if (selectedBook) {
       setFormData({
+        bookId: selectedBook._id,
         title: selectedBook.title,
         authorName: selectedBook.authorName,
         category: selectedBook.category,
         price: selectedBook.price.toString(),
+        preAuthorID: selectedBook.author._id
       });
     }
   }, [selectedBook]);
