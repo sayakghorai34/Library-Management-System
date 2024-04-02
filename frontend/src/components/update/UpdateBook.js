@@ -16,7 +16,6 @@ const UpdateBook = () => {
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [showBookList, setShowBookList] = useState(true);
-  const [preAuthorID, setPreAuthorID] = useState(null);
 
   const handleSearch = async (query) => {
     try {
@@ -42,8 +41,7 @@ const UpdateBook = () => {
       title: book.title,
       authorName: book?.author.authorName || '', 
       category: book.category || '', 
-      price: book.price ? book.price.toString() : '', 
-      preAuthorID: authorId
+      price: book.price ? book.price.toString() : ''
     });
   };
 
@@ -59,7 +57,6 @@ const UpdateBook = () => {
     setBooks([]);
     setSelectedBook(null);
     setShowBookList(true);
-    setPreAuthorID(null);
   };
   
 
@@ -107,8 +104,7 @@ const UpdateBook = () => {
         title: selectedBook.title,
         authorName: selectedBook.authorName,
         category: selectedBook.category,
-        price: selectedBook.price.toString(),
-        preAuthorID: selectedBook.author._id
+        price: selectedBook.price.toString()
       });
     }
   }, [selectedBook]);
