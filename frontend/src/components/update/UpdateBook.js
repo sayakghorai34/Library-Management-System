@@ -34,7 +34,6 @@ const UpdateBook = () => {
     if (!authorId) {
       throw new Error('Author ID not found');
     }
-    setPreAuthorID(authorId);
     setShowBookList(false);
     setFormData({
       bookId: book._id,
