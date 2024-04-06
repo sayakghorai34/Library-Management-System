@@ -1,7 +1,11 @@
-import React, { useState } from "react";
-import SearchBar from "../search_comp/SearchBar";
-import ItemList from "../search_comp/ItemList";
-import FormComp from "../search_comp/FormComp";
+import React, { lazy, startTransition, useState } from "react";
+// import SearchBar from "../search_comp/SearchBar";
+// import ItemList from "../search_comp/ItemList";
+// import FormComp from "../search_comp/FormComp";
+
+const SearchBar = lazy(() => import("../search_comp/SearchBar"));
+const ItemList = lazy(() => import("../search_comp/ItemList"));
+const FormComp = lazy(() => import("../search_comp/FormComp"));
 
 const DeleteBook = () => {
   const [books, setBooks] = useState([]);
@@ -29,27 +33,31 @@ const DeleteBook = () => {
   };
 
   const handleSelectBook = async (book) => {
-    setSelectedBook(book);
-    setShowBookList(false);
-    setFormData({
-      title: book.title,
-      authorName: book?.author.authorName || "",
-      category: book.category || "",
-      price: book.price ? book.price.toString() : "",
+    startTransition(() => {
+      setSelectedBook(book);
+      setShowBookList(false);
+      setFormData({
+        title: book.title,
+        authorName: book?.author.authorName || "",
+        category: book.category || "",
+        price: book.price ? book.price.toString() : "",
+      });
     });
   };
 
   const handleReset = () => {
-    setFormData({
-      title: "",
-      authorName: "",
-      category: "",
-      price: "",
+    startTransition(() => {
+      setFormData({
+        title: "",
+        authorName: "",
+        category: "",
+        price: "",
+      });
+      setBooks([]);
+      setSelectedBook(null);
+      setShowBookList(true);
+      setConfirmDelete("");
     });
-    setBooks([]);
-    setSelectedBook(null);
-    setShowBookList(true);
-    setConfirmDelete("");
   };
 
   const handleDelete = async () => {

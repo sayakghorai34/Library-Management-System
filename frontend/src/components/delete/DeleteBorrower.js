@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import SearchBar from '../search_comp/SearchBar';
-import ItemList from '../search_comp/ItemList';
-import FormComp from '../search_comp/FormComp';
+import React, {lazy,useState,startTransition } from "react";
+// import SearchBar from "../search_comp/SearchBar";
+// import ItemList from "../search_comp/ItemList";
+// import FormComp from "../search_comp/FormComp";
 
+const SearchBar = lazy(() => import("../search_comp/SearchBar"));
+const ItemList = lazy(() => import("../search_comp/ItemList"));
+const FormComp = lazy(() => import("../search_comp/FormComp"));
 
 const DeleteBorrower = () => {
   const [borrowers, setBorrowers] = useState([]);
@@ -24,14 +27,18 @@ const DeleteBorrower = () => {
   };
 
   const handleSelectBorrower = async (borrower) => {
-    setSelectedBorrower(borrower);
+    startTransition(() => {
+      setSelectedBorrower(borrower);
+    });
   };
 
   const handleReset = () => {
-    setSelectedBorrower(null);
-    setBorrowers([]);
-    setConfirmDelete('');
-    setShowBorrowerList(true);
+    startTransition(() => {
+      setSelectedBorrower(null);
+      setBorrowers([]);
+      setConfirmDelete('');
+      setShowBorrowerList(true);
+    });
   };
 
   const handleDelete = async () => {

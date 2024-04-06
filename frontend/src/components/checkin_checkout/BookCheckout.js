@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import CheckoutReceipt from './CheckoutReceipt';
-import SearchBar from '../search_comp/SearchBar';
-import ItemList from '../search_comp/ItemList';
+import React, {lazy,startTransition, useState } from 'react';
+// import CheckoutReceipt from './CheckoutReceipt';
+// import SearchBar from '../search_comp/SearchBar';
+// import ItemList from '../search_comp/ItemList';
 
+const CheckoutReceipt = lazy(() => import('./CheckoutReceipt'));
+const SearchBar = lazy(() => import('../search_comp/SearchBar'));
+const ItemList = lazy(() => import('../search_comp/ItemList'));
 
 const BookCheckout = () => {
   const [books, setBooks] = useState([]);
@@ -39,6 +42,7 @@ const BookCheckout = () => {
   };
 
   const handleItemSelect = (item, itemType) => {
+    startTransition(() => {
     if (itemType === 'book') {
       setSearchedBook(item);
       setSelectedBook(item);
@@ -49,27 +53,32 @@ const BookCheckout = () => {
       setSelectedBorrower(item);
       setShowBorrowerList(false);
     }
+  });
   };
 
   const handleContinue = () => {
+    startTransition(() => {
     if (searchedBook && searchedBorrower) {
       setShowSelectedItems(true);
     } else {
       alert('Please select both a book and a borrower.');
     }
+  });
   }
 
   const handleReset = () => {
-    setBooks([]);
-    setBorrowers([]);
-    setSearchedBook(null);
-    setSearchedBorrower(null);
-    setConfirmCheckout('');
-    setSelectedBook(null);
-    setSelectedBorrower(null);
-    setShowSelectedItems(false);
-    setShowBookList(true);
-    setShowBorrowerList(true);
+    startTransition(() => {
+      setBooks([]);
+      setBorrowers([]);
+      setSearchedBook(null);
+      setSearchedBorrower(null);
+      setConfirmCheckout('');
+      setSelectedBook(null);
+      setSelectedBorrower(null);
+      setShowSelectedItems(false);
+      setShowBookList(true);
+      setShowBorrowerList(true);
+    });
   };
   
 

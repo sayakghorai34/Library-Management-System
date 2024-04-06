@@ -1,35 +1,55 @@
-import React, { useState } from "react";
+import React, { lazy, useState, startTransition } from "react";
 
-import Home from "./components/Home.js";
-import Header from "./components/Header.js";
+// import Home from "./components/Home.js";
+// import Header from "./components/Header.js";
+// import AddBook from "./components/new/AddBook.js";
+// import AddAuthor from "./components/new/AddAuthor.js";
+// import AddBorrower from "./components/new/AddBorrower.js";
+// import BookCheckin from "./components/checkin_checkout/BookCheckin.js";
+// import BookCheckout from "./components/checkin_checkout/BookCheckout.js";
+// import UpdateBorrower from "./components/update/UpdateBorrower.js";
+// import UpdateAuthor from "./components/update/UpdateAuthor.js";
+// import UpdateBook from "./components/update/UpdateBook.js";
+// import DeleteBorrower from "./components/delete/DeleteBorrower.js";
+// import DeleteBook from "./components/delete/DeleteBook.js";
+// import ShowBorrowers from "./components/show/ShowBorrowers.js";
+// import ShowBooks from "./components/show/ShowBooks.js";
+// import ShowAuthors from "./components/show/ShowAuthors.js";
 
-import AddBook from "./components/new/AddBook.js";
-import AddAuthor from "./components/new/AddAuthor.js";
-import AddBorrower from "./components/new/AddBorrower.js";
+const Home = lazy(() => import("./components/Home.js"));
+const Header = lazy(() => import("./components/Header.js"));
 
-import BookCheckin from "./components/checkin_checkout/BookCheckin.js";
-import BookCheckout from "./components/checkin_checkout/BookCheckout.js";
+const AddBook = lazy(() => import("./components/new/AddBook.js"));
+const AddAuthor = lazy(() => import("./components/new/AddAuthor.js"));
+const AddBorrower = lazy(() => import("./components/new/AddBorrower.js"));
 
-import UpdateBorrower from "./components/update/UpdateBorrower.js";
-import UpdateAuthor from "./components/update/UpdateAuthor.js";
-import UpdateBook from "./components/update/UpdateBook.js";
+const BookCheckin = lazy(() => import("./components/checkin_checkout/BookCheckin.js"));
+const BookCheckout = lazy(() => import("./components/checkin_checkout/BookCheckout.js"));
 
-import DeleteBorrower from "./components/delete/DeleteBorrower.js";
-import DeleteBook from "./components/delete/DeleteBook.js";
+const UpdateBorrower = lazy(() => import("./components/update/UpdateBorrower.js"));
+const UpdateAuthor = lazy(() => import("./components/update/UpdateAuthor.js"));
+const UpdateBook = lazy(() => import("./components/update/UpdateBook.js"));
 
-import ShowBorrowers from "./components/show/ShowBorrowers.js";
-import ShowBooks from "./components/show/ShowBooks.js";
-import ShowAuthors from "./components/show/ShowAuthors.js";
+const DeleteBorrower = lazy(() => import("./components/delete/DeleteBorrower.js"));
+const DeleteBook = lazy(() => import("./components/delete/DeleteBook.js"));
+
+const ShowBorrowers = lazy(() => import("./components/show/ShowBorrowers.js"));
+const ShowBooks = lazy(() => import("./components/show/ShowBooks.js"));
+const ShowAuthors = lazy(() => import("./components/show/ShowAuthors.js"));
 
 function App() {
   const [activeForm, setActiveForm] = useState("goToHome");
 
   const handleButtonClick = (formName) => {
-    setActiveForm(formName);
+    startTransition(() => {
+      setActiveForm(formName);
+    });
   };
 
   const handleGoHomeClick = () => {
-    setActiveForm("goToHome");
+    startTransition(() => {
+      setActiveForm("goToHome");
+    });
   };
 
   return (

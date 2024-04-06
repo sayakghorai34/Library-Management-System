@@ -1,7 +1,11 @@
-import React, { useState } from "react";
-import SearchBar from "../search_comp/SearchBar";
-import ItemList from "../search_comp/ItemList";
-import FormComp from "../search_comp/FormComp";
+import React, {lazy,useState,startTransition } from "react";
+// import SearchBar from "../search_comp/SearchBar";
+// import ItemList from "../search_comp/ItemList";
+// import FormComp from "../search_comp/FormComp";
+
+const SearchBar = lazy(() => import("../search_comp/SearchBar"));
+const ItemList = lazy(() => import("../search_comp/ItemList"));
+const FormComp = lazy(() => import("../search_comp/FormComp"));
 
 const CheckinBook = () => {
   const [books, setBooks] = useState([]);
@@ -30,12 +34,7 @@ const CheckinBook = () => {
   };
 
   const handleSelectBook = async (book) => {
-    setSelectedBook(book);
-    try {
-      const borrowerId = book.borrower;
-      if (!borrowerId) {
-        throw new Error("Borrower ID not found");
-      }
+    startTransition(() => {
       setSelectedBook(book);
       setShowBookList(false);
       setFormData({
@@ -44,6 +43,12 @@ const CheckinBook = () => {
         category: book.category || "",
         price: book.price ? book.price.toString() : "",
       });
+    });
+    try {
+      const borrowerId = book.borrower;
+      if (!borrowerId) {
+        throw new Error("Borrower ID not found");
+      }
     } catch (error) {
       console.error("Error fetching borrower details:", error);
       setFormData({
@@ -56,10 +61,12 @@ const CheckinBook = () => {
   };
 
   const handleReset = () => {
-    setSelectedBook(null);
-    setShowBookList(true);
-    setBooks([]);
-    setConfirmCheckin("");
+    startTransition(() => {
+      setSelectedBook(null);
+      setShowBookList(true);
+      setBooks([]);
+      setConfirmCheckin("");
+    });
   };
 
   const handleCheckin = async () => {

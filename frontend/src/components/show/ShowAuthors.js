@@ -1,6 +1,7 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
-import SearchBar from '../search_comp/SearchBar';
+import React, { lazy, startTransition, useState, useEffect, useCallback } from 'react';
+// import SearchBar from '../search_comp/SearchBar';
+const SearchBar = lazy(() => import("../search_comp/SearchBar"));
 
 const ShowItemList = ({ items, openItems, toggleItem }) => {
   return (
@@ -47,18 +48,25 @@ const ShowAuthors = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URI}/authors/search?query=${query}`);
       const data = await response.json();
-      setAuthors(data);
+      startTransition(() => {
+        setAuthors(data);
+        setOpenItems([]);
+      });
     } catch (error) {
       console.error('Error fetching borrowers:', error);
       setAuthors([]);
     }
   }, []);
+  
 
   const handleClearSearch = () => {
-    setSearchQuery('');
-    handleSearch('');
-    setAuthors(initialAuthorsState);
-    setOpenItems([]);
+    startTransition(() => {
+      setAuthors([]);
+      handleSearch('');
+      setAuthors(initialAuthorsState);
+      setOpenItems([]);
+      setSearchQuery('');
+    });
   };
 
   useEffect(() => {
