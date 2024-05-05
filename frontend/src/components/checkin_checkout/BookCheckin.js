@@ -1,7 +1,4 @@
 import React, {lazy,useState,startTransition } from "react";
-// import SearchBar from "../search_comp/SearchBar";
-// import ItemList from "../search_comp/ItemList";
-// import FormComp from "../search_comp/FormComp";
 
 const SearchBar = lazy(() => import("../search_comp/SearchBar"));
 const ItemList = lazy(() => import("../search_comp/ItemList"));
