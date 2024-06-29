@@ -57,6 +57,7 @@ const DeleteBorrower = () => {
           setSelectedBorrower(null);
           setShowBorrowerList(true);
           setBorrowers([]);
+          handleDelete();
         }
       } catch (error) {
         console.error('Error deleting borrower:', error);

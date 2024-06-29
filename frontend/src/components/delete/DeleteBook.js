@@ -83,6 +83,7 @@ const DeleteBook = () => {
           setConfirmDelete("");
           setSelectedBook(null);
           setBooks([]);
+          handleReset();
         }
       } catch (error) {
         console.error("Error deleting book:", error);
